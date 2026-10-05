@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LeadBR â€” ProspecÃ§Ã£o de Clientes</title>
+  <meta name="description" content="Ferramenta de prospecÃ§Ã£o de empresas em todo o Brasil.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-dot"></span> LeadBR</div>
+      <p class="tagline">ProspecÃ§Ã£o inteligente de clientes</p>
+      <nav>
+        <button class="nav active" data-view="search">ðŸ”Ž Encontrar leads</button>
+        <button class="nav" data-view="favorites">â­ Favoritos <span id="favCount">0</span></button>
+        <button class="nav" data-view="settings">âš™ï¸ API / ConfiguraÃ§Ã£o</button>
+      </nav>
+      <div class="side-note">
+        <b>V1</b>
+        <p>Pesquise por segmento, cidade e estado. O sistema calcula automaticamente o potencial comercial.</p>
+      </div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <div>
+          <span class="eyebrow">CENTRAL DE PROSPECÃ‡ÃƒO</span>
+          <h1>Encontre empresas que podem virar clientes.</h1>
+        </div>
+        <div class="api-status" id="apiStatus"><i></i> API nÃ£o configurada</div>
+      </header>
+
+      <section id="searchView" class="view active">
+        <div class="search-card">
+          <div class="field big">
+            <label>O que vocÃª procura?</label>
+            <input id="segment" placeholder="Ex.: clÃ­nica odontolÃ³gica, restaurante, academia">
+          </div>
+          <div class="field">
+            <label>Estado</label>
+            <select id="state">
+              <option value="">Todos</option>
+              <option>AC</option><option>AL</option><option>AP</option><option>AM</option>
+              <option>BA</option><option>CE</option><option>DF</option><option>ES</option>
+              <option>GO</option><option>MA</option><option>MT</option><option>MS</option>
+              <option>MG</option><option>PA</option><option>PB</option><option>PR</option>
+              <option>PE</option><option>PI</option><option>RJ</option><option>RN</option>
+              <option>RS</option><option>RO</option><option>RR</option><option>SC</option>
+              <option>SP</option><option>SE</option><option>TO</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Cidade</label>
+            <input id="city" placeholder="Ex.: SÃ£o Paulo">
+          </div>
+          <div class="field">
+            <label>MÃ¡x. resultados</label>
+            <select id="limit"><option>10</option><option>25</option><option>50</option><option>100</option></select>
+          </div>
+          <button class="search-btn" id="searchBtn">Buscar leads <span>â†’</span></button>
+        </div>
+
+        <div class="stats" id="stats">
+          <div><span>Total encontrados</span><strong id="total">0</strong></div>
+          <div><span>Alta oportunidade</span><strong id="high">0</strong></div>
+          <div><span>Com WhatsApp/telefone</span><strong id="phones">0</strong></div>
+          <div><span>Favoritos</span><strong id="favorites">0</strong></div>
+        </div>
+
+        <div class="toolbar">
+          <div>
+            <h2 id="resultTitle">Resultados</h2>
+            <p id="resultSubtitle">FaÃ§a uma busca para comeÃ§ar.</p>
+          </div>
+          <div class="filters">
+            <select id="opportunityFilter">
+              <option value="all">Todas oportunidades</option>
+              <option value="high">ðŸ”¥ Alta</option>
+              <option value="medium">âš¡ MÃ©dia</option>
+              <option value="low">âœ“ Baixa</option>
+            </select>
+            <button id="exportBtn" class="secondary">Exportar CSV</button>
+          </div>
+        </div>
+
+        <div id="results" class="results empty">
+          <div class="empty-box">
+            <div>ðŸŽ¯</div>
+            <h3>Pronto para prospectar</h3>
+            <p>Digite um segmento e uma cidade, ou deixe a cidade vazia para ampliar a busca.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="favoritesView" class="view">
+        <div class="toolbar">
+          <div><h2>â­ Seus favoritos</h2><p>Leads salvos neste navegador.</p></div>
+        </div>
+        <div id="favoriteResults" class="results"></div>
+      </section>
+
+      <section id="settingsView" class="view">
+        <div class="settings-card">
+          <span class="eyebrow">INTEGRAÃ‡ÃƒO</span>
+          <h2>Conectar API de leads</h2>
+          <p class="muted">A V1 aceita uma API REST que devolva uma lista de empresas. Para GitHub Pages, prefira uma API prÃ³pria/proxy no backend para nÃ£o publicar uma chave secreta.</p>
+          <label>URL da API / Proxy</label>
+          <input id="apiUrl" placeholder="https://seu-backend.com/api/leads">
+          <label>Token pÃºblico (opcional)</label>
+          <input id="apiToken" type="password" placeholder="Token somente se for seguro expor no frontend">
+          <div class="api-contract">
+            <b>Formato esperado</b>
+            <pre>{
+  "leads": [
+    {
+      "name": "Empresa Exemplo",
+      "city": "SÃ£o Paulo",
+      "state": "SP",
+      "phone": "+5511999999999",
+      "whatsapp": "5511999999999",
+      "website": "https://...",
+      "instagram": "https://instagram.com/...",
+      "rating": 4.7,
+      "reviews": 83
+    }
+  ]
+}</pre>
+          </div>
+          <button id="saveSettings" class="search-btn">Salvar configuraÃ§Ã£o</button>
+          <p id="settingsMessage" class="success"></p>
+          <div class="security"><b>âš ï¸ SeguranÃ§a:</b> nÃ£o coloque chaves privadas de Google, SerpAPI ou similares neste campo em um site pÃºblico. Use um backend/proxy.</div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script src="script.js"></script>
+</body>
+</html>
