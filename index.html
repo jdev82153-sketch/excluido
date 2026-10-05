@@ -1,142 +1,259 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LeadBR â€” ProspecÃ§Ã£o de Clientes</title>
-  <meta name="description" content="Ferramenta de prospecÃ§Ã£o de empresas em todo o Brasil.">
+  <meta name="theme-color" content="#080d18">
+  <title>LeadBR — Prospecção Inteligente</title>
+  <meta name="description" content="Encontre empresas e organize oportunidades comerciais em todo o Brasil.">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="app">
-    <aside class="sidebar">
-      <div class="brand"><span class="brand-dot"></span> LeadBR</div>
-      <p class="tagline">ProspecÃ§Ã£o inteligente de clientes</p>
-      <nav>
-        <button class="nav active" data-view="search">ðŸ”Ž Encontrar leads</button>
-        <button class="nav" data-view="favorites">â­ Favoritos <span id="favCount">0</span></button>
-        <button class="nav" data-view="settings">âš™ï¸ API / ConfiguraÃ§Ã£o</button>
-      </nav>
-      <div class="side-note">
-        <b>V1</b>
-        <p>Pesquise por segmento, cidade e estado. O sistema calcula automaticamente o potencial comercial.</p>
+
+<div class="layout">
+  <aside class="sidebar">
+    <a class="brand" href="#">
+      <span class="brand-icon">L</span>
+      <span>Lead<span class="accent">BR</span><small>PROSPECÇÃO INTELIGENTE</small></span>
+    </a>
+
+    <div class="menu-label">MENU PRINCIPAL</div>
+    <nav>
+      <button class="nav active" data-page="dashboard">▦ <span>Painel</span></button>
+      <button class="nav" data-page="search">⌕ <span>Encontrar leads</span></button>
+      <button class="nav" data-page="favorites">☆ <span>Favoritos</span><b id="favCount">0</b></button>
+      <button class="nav" data-page="api">⚙ <span>Configuração da API</span></button>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="status-dot"></div>
+      <div><strong id="sidebarStatus">Modo demonstração</strong><small>Estado da integração</small></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">CENTRAL DE PROSPECÇÃO</div>
+        <h1 id="pageTitle">Seu painel de oportunidades</h1>
+        <p id="pageSubtitle">Encontre empresas, identifique oportunidades e organize seus contatos.</p>
       </div>
-    </aside>
+      <div class="top-actions">
+        <span class="connection" id="connectionStatus"><i></i> Demonstração</span>
+      </div>
+    </header>
 
-    <main>
-      <header class="topbar">
+    <section class="page active" id="page-dashboard">
+      <div class="hero">
         <div>
-          <span class="eyebrow">CENTRAL DE PROSPECÃ‡ÃƒO</span>
-          <h1>Encontre empresas que podem virar clientes.</h1>
+          <span class="hero-tag">LEADBR • V2</span>
+          <h2>Encontre seu próximo cliente.</h2>
+          <p>Pesquise empresas, encontre oportunidades e transforme contatos em negócios.</p>
+          <button class="btn primary" data-goto="search">Encontrar empresas <span>→</span></button>
         </div>
-        <div class="api-status" id="apiStatus"><i></i> API nÃ£o configurada</div>
-      </header>
+        <div class="hero-graphic">↗</div>
+      </div>
 
-      <section id="searchView" class="view active">
-        <div class="search-card">
-          <div class="field big">
-            <label>O que vocÃª procura?</label>
-            <input id="segment" placeholder="Ex.: clÃ­nica odontolÃ³gica, restaurante, academia">
+      <div class="stats-grid">
+        <div class="stat-card"><span>Leads encontrados</span><strong id="statTotal">0</strong><small>Na sessão atual</small></div>
+        <div class="stat-card"><span>Alta oportunidade</span><strong id="statHigh">0</strong><small>Prioridade comercial</small></div>
+        <div class="stat-card"><span>Com telefone</span><strong id="statPhone">0</strong><small>Contato disponível</small></div>
+        <div class="stat-card"><span>Favoritos</span><strong id="statFavorites">0</strong><small>Leads salvos</small></div>
+      </div>
+
+      <div class="section-heading">
+        <div><h2>Acesso rápido</h2><p>Escolha o que deseja fazer.</p></div>
+      </div>
+      <div class="quick-grid">
+        <button class="quick-card" data-goto="search"><span>⌕</span><strong>Buscar empresas</strong><small>Pesquise por segmento e localização.</small></button>
+        <button class="quick-card" data-goto="favorites"><span>☆</span><strong>Meus favoritos</strong><small>Consulte os leads que você salvou.</small></button>
+        <button class="quick-card" data-goto="api"><span>⚙</span><strong>Conectar uma API</strong><small>Configure sua fonte de dados.</small></button>
+      </div>
+
+      <div class="notice">
+        <strong>Importante</strong>
+        <p>Os resultados de demonstração são fictícios. Para pesquisar empresas reais, configure uma API de dados válida.</p>
+      </div>
+    </section>
+
+    <section class="page" id="page-search">
+      <div class="panel search-panel">
+        <div class="section-heading">
+          <div><h2>Encontrar empresas</h2><p>Defina o perfil de cliente que deseja prospectar.</p></div>
+        </div>
+        <form id="searchForm" class="search-grid">
+          <div class="field span-2">
+            <label for="segment">Segmento ou palavra-chave *</label>
+            <input id="segment" required placeholder="Ex.: clínicas odontológicas, academias, restaurantes">
           </div>
           <div class="field">
-            <label>Estado</label>
+            <label for="state">Estado</label>
             <select id="state">
-              <option value="">Todos</option>
-              <option>AC</option><option>AL</option><option>AP</option><option>AM</option>
-              <option>BA</option><option>CE</option><option>DF</option><option>ES</option>
-              <option>GO</option><option>MA</option><option>MT</option><option>MS</option>
-              <option>MG</option><option>PA</option><option>PB</option><option>PR</option>
-              <option>PE</option><option>PI</option><option>RJ</option><option>RN</option>
-              <option>RS</option><option>RO</option><option>RR</option><option>SC</option>
-              <option>SP</option><option>SE</option><option>TO</option>
+              <option value="">Todos os estados</option>
+              <option value="AC">Acre</option><option value="AL">Alagoas</option>
+              <option value="AP">Amapá</option><option value="AM">Amazonas</option>
+              <option value="BA">Bahia</option><option value="CE">Ceará</option>
+              <option value="DF">Distrito Federal</option><option value="ES">Espírito Santo</option>
+              <option value="GO">Goiás</option><option value="MA">Maranhão</option>
+              <option value="MT">Mato Grosso</option><option value="MS">Mato Grosso do Sul</option>
+              <option value="MG">Minas Gerais</option><option value="PA">Pará</option>
+              <option value="PB">Paraíba</option><option value="PR">Paraná</option>
+              <option value="PE">Pernambuco</option><option value="PI">Piauí</option>
+              <option value="RJ">Rio de Janeiro</option><option value="RN">Rio Grande do Norte</option>
+              <option value="RS">Rio Grande do Sul</option><option value="RO">Rondônia</option>
+              <option value="RR">Roraima</option><option value="SC">Santa Catarina</option>
+              <option value="SP">São Paulo</option><option value="SE">Sergipe</option>
+              <option value="TO">Tocantins</option>
             </select>
           </div>
           <div class="field">
-            <label>Cidade</label>
-            <input id="city" placeholder="Ex.: SÃ£o Paulo">
+            <label for="city">Cidade</label>
+            <input id="city" placeholder="Ex.: Sorocaba">
           </div>
           <div class="field">
-            <label>MÃ¡x. resultados</label>
-            <select id="limit"><option>10</option><option>25</option><option>50</option><option>100</option></select>
+            <label for="limit">Resultados</label>
+            <select id="limit"><option value="10">10 leads</option><option value="25">25 leads</option><option value="50">50 leads</option><option value="100">100 leads</option></select>
           </div>
-          <button class="search-btn" id="searchBtn">Buscar leads <span>â†’</span></button>
-        </div>
-
-        <div class="stats" id="stats">
-          <div><span>Total encontrados</span><strong id="total">0</strong></div>
-          <div><span>Alta oportunidade</span><strong id="high">0</strong></div>
-          <div><span>Com WhatsApp/telefone</span><strong id="phones">0</strong></div>
-          <div><span>Favoritos</span><strong id="favorites">0</strong></div>
-        </div>
-
-        <div class="toolbar">
-          <div>
-            <h2 id="resultTitle">Resultados</h2>
-            <p id="resultSubtitle">FaÃ§a uma busca para comeÃ§ar.</p>
+          <div class="field">
+            <label for="siteFilter">Presença digital</label>
+            <select id="siteFilter"><option value="all">Todas as empresas</option><option value="no-site">Sem site</option><option value="has-site">Com site</option></select>
           </div>
-          <div class="filters">
-            <select id="opportunityFilter">
-              <option value="all">Todas oportunidades</option>
-              <option value="high">ðŸ”¥ Alta</option>
-              <option value="medium">âš¡ MÃ©dia</option>
-              <option value="low">âœ“ Baixa</option>
-            </select>
-            <button id="exportBtn" class="secondary">Exportar CSV</button>
+          <div class="search-submit">
+            <button class="btn primary" id="searchButton" type="submit">Pesquisar leads <span>→</span></button>
           </div>
+        </form>
+      </div>
+
+      <div class="section-heading result-heading">
+        <div><h2 id="resultsTitle">Resultados da busca</h2><p id="resultsSubtitle">Faça uma pesquisa para visualizar empresas.</p></div>
+        <div class="result-actions">
+          <select id="opportunityFilter" aria-label="Filtrar oportunidade"><option value="all">Todas oportunidades</option><option value="high">Alta oportunidade</option><option value="medium">Média oportunidade</option><option value="low">Baixa oportunidade</option></select>
+          <button class="btn secondary" id="exportButton">Exportar CSV ↓</button>
+        </div>
+      </div>
+
+      <div id="results" class="lead-grid">
+        <div class="empty-state"><span>⌕</span><h3>Seu próximo cliente está por aí.</h3><p>Faça uma busca para começar a encontrar oportunidades.</p></div>
+      </div>
+    </section>
+
+    <section class="page" id="page-favorites">
+      <div class="section-heading"><div><h2>Seus leads favoritos</h2><p>Empresas salvas neste navegador.</p></div><button class="btn secondary" id="exportFavorites">Exportar favoritos ↓</button></div>
+      <div id="favoritesResults" class="lead-grid"></div>
+    </section>
+
+    <section class="page" id="page-api">
+      <div class="api-layout">
+        <div class="panel api-panel">
+          <div class="section-heading"><div><h2>Integração de dados</h2><p>Conecte uma API compatível para buscar empresas reais.</p></div></div>
+
+          <div class="api-banner"><span class="api-banner-icon">⚡</span><div><strong id="apiBannerTitle">API ainda não configurada</strong><p id="apiBannerText">Configure o endereço do seu backend para habilitar as consultas reais.</p></div></div>
+
+          <form id="apiForm">
+            <div class="field">
+              <label for="apiUrl">URL do endpoint *</label>
+              <input id="apiUrl" type="url" placeholder="https://api.seudominio.com/leads">
+              <small>Use um endpoint HTTPS que você controla ou confia.</small>
+            </div>
+
+            <div class="form-two">
+              <div class="field">
+                <label for="apiMethod">Método HTTP</label>
+                <select id="apiMethod"><option value="GET">GET — parâmetros na URL</option><option value="POST">POST — parâmetros no corpo</option></select>
+              </div>
+              <div class="field">
+                <label for="authType">Autenticação</label>
+                <select id="authType"><option value="none">Sem autenticação</option><option value="bearer">Bearer token</option><option value="header">Token em cabeçalho personalizado</option></select>
+              </div>
+            </div>
+
+            <div id="tokenFields" class="hidden">
+              <div class="field">
+                <label for="apiToken">Token de acesso</label>
+                <input id="apiToken" type="password" autocomplete="off" placeholder="Insira o token">
+                <small>Não use chaves privadas neste site público. O token pode ser visto por quem controla o navegador.</small>
+              </div>
+              <div class="field hidden" id="headerNameField">
+                <label for="headerName">Nome do cabeçalho</label>
+                <input id="headerName" placeholder="Ex.: x-api-key">
+              </div>
+            </div>
+
+            <div class="form-two">
+              <div class="field">
+                <label for="resultsParam">Parâmetro de quantidade</label>
+                <input id="resultsParam" value="limit" placeholder="limit">
+              </div>
+              <div class="field">
+                <label for="queryParam">Parâmetro de busca</label>
+                <input id="queryParam" value="segment" placeholder="segment">
+              </div>
+            </div>
+            <div class="form-two">
+              <div class="field">
+                <label for="cityParam">Parâmetro de cidade</label>
+                <input id="cityParam" value="city" placeholder="city">
+              </div>
+              <div class="field">
+                <label for="stateParam">Parâmetro de estado</label>
+                <input id="stateParam" value="state" placeholder="state">
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="responsePath">Caminho da lista no JSON (opcional)</label>
+              <input id="responsePath" placeholder="Ex.: data.leads (deixe vazio para detectar automaticamente)">
+              <small>Use pontos para acessar objetos aninhados. Exemplo: results.items</small>
+            </div>
+
+            <div class="api-buttons">
+              <button type="submit" class="btn primary">Salvar configuração</button>
+              <button type="button" class="btn secondary" id="testApi">Testar conexão</button>
+              <button type="button" class="btn ghost" id="clearApi">Limpar</button>
+            </div>
+          </form>
+          <div id="apiMessage" class="api-message" role="status"></div>
         </div>
 
-        <div id="results" class="results empty">
-          <div class="empty-box">
-            <div>ðŸŽ¯</div>
-            <h3>Pronto para prospectar</h3>
-            <p>Digite um segmento e uma cidade, ou deixe a cidade vazia para ampliar a busca.</p>
+        <div class="api-side">
+          <div class="panel">
+            <h3>Estado da conexão</h3>
+            <div class="connection-detail"><span class="status-light" id="apiLight"></span><div><strong id="apiStateText">Não configurada</strong><small id="apiLastTest">Nenhum teste realizado</small></div></div>
+            <hr>
+            <h3>Como funciona</h3>
+            <ol class="steps"><li>Escolha uma fonte de dados e crie seu endpoint.</li><li>Configure a URL e o método HTTP.</li><li>Teste a conexão e salve.</li><li>Faça uma busca na página Encontrar leads.</li></ol>
           </div>
-        </div>
-      </section>
-
-      <section id="favoritesView" class="view">
-        <div class="toolbar">
-          <div><h2>â­ Seus favoritos</h2><p>Leads salvos neste navegador.</p></div>
-        </div>
-        <div id="favoriteResults" class="results"></div>
-      </section>
-
-      <section id="settingsView" class="view">
-        <div class="settings-card">
-          <span class="eyebrow">INTEGRAÃ‡ÃƒO</span>
-          <h2>Conectar API de leads</h2>
-          <p class="muted">A V1 aceita uma API REST que devolva uma lista de empresas. Para GitHub Pages, prefira uma API prÃ³pria/proxy no backend para nÃ£o publicar uma chave secreta.</p>
-          <label>URL da API / Proxy</label>
-          <input id="apiUrl" placeholder="https://seu-backend.com/api/leads">
-          <label>Token pÃºblico (opcional)</label>
-          <input id="apiToken" type="password" placeholder="Token somente se for seguro expor no frontend">
-          <div class="api-contract">
-            <b>Formato esperado</b>
-            <pre>{
+          <div class="panel">
+            <h3>Formato de resposta esperado</h3>
+            <p class="muted">O endpoint pode retornar uma lista diretamente ou dentro de <code>leads</code>, <code>results</code> ou <code>data</code>.</p>
+            <pre class="code-sample">{
   "leads": [
     {
       "name": "Empresa Exemplo",
-      "city": "SÃ£o Paulo",
+      "city": "Sorocaba",
       "state": "SP",
       "phone": "+5511999999999",
-      "whatsapp": "5511999999999",
-      "website": "https://...",
-      "instagram": "https://instagram.com/...",
-      "rating": 4.7,
-      "reviews": 83
+      "website": "",
+      "instagram": "",
+      "rating": 4.5,
+      "reviews": 30
     }
   ]
 }</pre>
+            <button type="button" class="btn secondary full" id="copyExample">Copiar exemplo JSON</button>
           </div>
-          <button id="saveSettings" class="search-btn">Salvar configuraÃ§Ã£o</button>
-          <p id="settingsMessage" class="success"></p>
-          <div class="security"><b>âš ï¸ SeguranÃ§a:</b> nÃ£o coloque chaves privadas de Google, SerpAPI ou similares neste campo em um site pÃºblico. Use um backend/proxy.</div>
+          <div class="security-note"><strong>🔐 Segurança</strong><p>GitHub Pages é público e não protege segredos. Nunca coloque chaves privadas de provedores no JavaScript. Para Google Places ou APIs pagas, use um backend com a chave guardada em variável de ambiente.</p></div>
         </div>
-      </section>
-    </main>
-  </div>
+      </div>
+    </section>
 
-  <div id="toast" class="toast"></div>
-  <script src="script.js"></script>
+    <footer>LeadBR V2 <span>•</span> Ferramenta de organização de prospecção</footer>
+  </main>
+</div>
+
+<div id="toast" class="toast"></div>
+<script src="script.js"></script>
 </body>
 </html>
+```
