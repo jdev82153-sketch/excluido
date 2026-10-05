@@ -1,259 +1,943 @@
-```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#080d18">
-  <title>LeadBR — Prospecção Inteligente</title>
-  <meta name="description" content="Encontre empresas e organize oportunidades comerciais em todo o Brasil.">
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LeadBR — Prospecção Inteligente</title>
+
+    <meta
+        name="description"
+        content="Encontre e organize potenciais clientes em todo o Brasil."
+    >
+
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<div class="layout">
-  <aside class="sidebar">
-    <a class="brand" href="#">
-      <span class="brand-icon">L</span>
-      <span>Lead<span class="accent">BR</span><small>PROSPECÇÃO INTELIGENTE</small></span>
-    </a>
+<div class="app">
 
-    <div class="menu-label">MENU PRINCIPAL</div>
-    <nav>
-      <button class="nav active" data-page="dashboard">▦ <span>Painel</span></button>
-      <button class="nav" data-page="search">⌕ <span>Encontrar leads</span></button>
-      <button class="nav" data-page="favorites">☆ <span>Favoritos</span><b id="favCount">0</b></button>
-      <button class="nav" data-page="api">⚙ <span>Configuração da API</span></button>
-    </nav>
+    <!-- SIDEBAR -->
 
-    <div class="sidebar-bottom">
-      <div class="status-dot"></div>
-      <div><strong id="sidebarStatus">Modo demonstração</strong><small>Estado da integração</small></div>
-    </div>
-  </aside>
+    <aside class="sidebar">
 
-  <main class="main">
-    <header class="topbar">
-      <div>
-        <div class="eyebrow">CENTRAL DE PROSPECÇÃO</div>
-        <h1 id="pageTitle">Seu painel de oportunidades</h1>
-        <p id="pageSubtitle">Encontre empresas, identifique oportunidades e organize seus contatos.</p>
-      </div>
-      <div class="top-actions">
-        <span class="connection" id="connectionStatus"><i></i> Demonstração</span>
-      </div>
-    </header>
+        <div class="logo-area">
 
-    <section class="page active" id="page-dashboard">
-      <div class="hero">
-        <div>
-          <span class="hero-tag">LEADBR • V2</span>
-          <h2>Encontre seu próximo cliente.</h2>
-          <p>Pesquise empresas, encontre oportunidades e transforme contatos em negócios.</p>
-          <button class="btn primary" data-goto="search">Encontrar empresas <span>→</span></button>
-        </div>
-        <div class="hero-graphic">↗</div>
-      </div>
-
-      <div class="stats-grid">
-        <div class="stat-card"><span>Leads encontrados</span><strong id="statTotal">0</strong><small>Na sessão atual</small></div>
-        <div class="stat-card"><span>Alta oportunidade</span><strong id="statHigh">0</strong><small>Prioridade comercial</small></div>
-        <div class="stat-card"><span>Com telefone</span><strong id="statPhone">0</strong><small>Contato disponível</small></div>
-        <div class="stat-card"><span>Favoritos</span><strong id="statFavorites">0</strong><small>Leads salvos</small></div>
-      </div>
-
-      <div class="section-heading">
-        <div><h2>Acesso rápido</h2><p>Escolha o que deseja fazer.</p></div>
-      </div>
-      <div class="quick-grid">
-        <button class="quick-card" data-goto="search"><span>⌕</span><strong>Buscar empresas</strong><small>Pesquise por segmento e localização.</small></button>
-        <button class="quick-card" data-goto="favorites"><span>☆</span><strong>Meus favoritos</strong><small>Consulte os leads que você salvou.</small></button>
-        <button class="quick-card" data-goto="api"><span>⚙</span><strong>Conectar uma API</strong><small>Configure sua fonte de dados.</small></button>
-      </div>
-
-      <div class="notice">
-        <strong>Importante</strong>
-        <p>Os resultados de demonstração são fictícios. Para pesquisar empresas reais, configure uma API de dados válida.</p>
-      </div>
-    </section>
-
-    <section class="page" id="page-search">
-      <div class="panel search-panel">
-        <div class="section-heading">
-          <div><h2>Encontrar empresas</h2><p>Defina o perfil de cliente que deseja prospectar.</p></div>
-        </div>
-        <form id="searchForm" class="search-grid">
-          <div class="field span-2">
-            <label for="segment">Segmento ou palavra-chave *</label>
-            <input id="segment" required placeholder="Ex.: clínicas odontológicas, academias, restaurantes">
-          </div>
-          <div class="field">
-            <label for="state">Estado</label>
-            <select id="state">
-              <option value="">Todos os estados</option>
-              <option value="AC">Acre</option><option value="AL">Alagoas</option>
-              <option value="AP">Amapá</option><option value="AM">Amazonas</option>
-              <option value="BA">Bahia</option><option value="CE">Ceará</option>
-              <option value="DF">Distrito Federal</option><option value="ES">Espírito Santo</option>
-              <option value="GO">Goiás</option><option value="MA">Maranhão</option>
-              <option value="MT">Mato Grosso</option><option value="MS">Mato Grosso do Sul</option>
-              <option value="MG">Minas Gerais</option><option value="PA">Pará</option>
-              <option value="PB">Paraíba</option><option value="PR">Paraná</option>
-              <option value="PE">Pernambuco</option><option value="PI">Piauí</option>
-              <option value="RJ">Rio de Janeiro</option><option value="RN">Rio Grande do Norte</option>
-              <option value="RS">Rio Grande do Sul</option><option value="RO">Rondônia</option>
-              <option value="RR">Roraima</option><option value="SC">Santa Catarina</option>
-              <option value="SP">São Paulo</option><option value="SE">Sergipe</option>
-              <option value="TO">Tocantins</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="city">Cidade</label>
-            <input id="city" placeholder="Ex.: Sorocaba">
-          </div>
-          <div class="field">
-            <label for="limit">Resultados</label>
-            <select id="limit"><option value="10">10 leads</option><option value="25">25 leads</option><option value="50">50 leads</option><option value="100">100 leads</option></select>
-          </div>
-          <div class="field">
-            <label for="siteFilter">Presença digital</label>
-            <select id="siteFilter"><option value="all">Todas as empresas</option><option value="no-site">Sem site</option><option value="has-site">Com site</option></select>
-          </div>
-          <div class="search-submit">
-            <button class="btn primary" id="searchButton" type="submit">Pesquisar leads <span>→</span></button>
-          </div>
-        </form>
-      </div>
-
-      <div class="section-heading result-heading">
-        <div><h2 id="resultsTitle">Resultados da busca</h2><p id="resultsSubtitle">Faça uma pesquisa para visualizar empresas.</p></div>
-        <div class="result-actions">
-          <select id="opportunityFilter" aria-label="Filtrar oportunidade"><option value="all">Todas oportunidades</option><option value="high">Alta oportunidade</option><option value="medium">Média oportunidade</option><option value="low">Baixa oportunidade</option></select>
-          <button class="btn secondary" id="exportButton">Exportar CSV ↓</button>
-        </div>
-      </div>
-
-      <div id="results" class="lead-grid">
-        <div class="empty-state"><span>⌕</span><h3>Seu próximo cliente está por aí.</h3><p>Faça uma busca para começar a encontrar oportunidades.</p></div>
-      </div>
-    </section>
-
-    <section class="page" id="page-favorites">
-      <div class="section-heading"><div><h2>Seus leads favoritos</h2><p>Empresas salvas neste navegador.</p></div><button class="btn secondary" id="exportFavorites">Exportar favoritos ↓</button></div>
-      <div id="favoritesResults" class="lead-grid"></div>
-    </section>
-
-    <section class="page" id="page-api">
-      <div class="api-layout">
-        <div class="panel api-panel">
-          <div class="section-heading"><div><h2>Integração de dados</h2><p>Conecte uma API compatível para buscar empresas reais.</p></div></div>
-
-          <div class="api-banner"><span class="api-banner-icon">⚡</span><div><strong id="apiBannerTitle">API ainda não configurada</strong><p id="apiBannerText">Configure o endereço do seu backend para habilitar as consultas reais.</p></div></div>
-
-          <form id="apiForm">
-            <div class="field">
-              <label for="apiUrl">URL do endpoint *</label>
-              <input id="apiUrl" type="url" placeholder="https://api.seudominio.com/leads">
-              <small>Use um endpoint HTTPS que você controla ou confia.</small>
+            <div class="logo-mark">
+                L
             </div>
 
-            <div class="form-two">
-              <div class="field">
-                <label for="apiMethod">Método HTTP</label>
-                <select id="apiMethod"><option value="GET">GET — parâmetros na URL</option><option value="POST">POST — parâmetros no corpo</option></select>
-              </div>
-              <div class="field">
-                <label for="authType">Autenticação</label>
-                <select id="authType"><option value="none">Sem autenticação</option><option value="bearer">Bearer token</option><option value="header">Token em cabeçalho personalizado</option></select>
-              </div>
+            <div>
+                <div class="logo-name">
+                    Lead<span>BR</span>
+                </div>
+
+                <div class="logo-sub">
+                    LEAD INTELLIGENCE
+                </div>
             </div>
 
-            <div id="tokenFields" class="hidden">
-              <div class="field">
-                <label for="apiToken">Token de acesso</label>
-                <input id="apiToken" type="password" autocomplete="off" placeholder="Insira o token">
-                <small>Não use chaves privadas neste site público. O token pode ser visto por quem controla o navegador.</small>
-              </div>
-              <div class="field hidden" id="headerNameField">
-                <label for="headerName">Nome do cabeçalho</label>
-                <input id="headerName" placeholder="Ex.: x-api-key">
-              </div>
-            </div>
-
-            <div class="form-two">
-              <div class="field">
-                <label for="resultsParam">Parâmetro de quantidade</label>
-                <input id="resultsParam" value="limit" placeholder="limit">
-              </div>
-              <div class="field">
-                <label for="queryParam">Parâmetro de busca</label>
-                <input id="queryParam" value="segment" placeholder="segment">
-              </div>
-            </div>
-            <div class="form-two">
-              <div class="field">
-                <label for="cityParam">Parâmetro de cidade</label>
-                <input id="cityParam" value="city" placeholder="city">
-              </div>
-              <div class="field">
-                <label for="stateParam">Parâmetro de estado</label>
-                <input id="stateParam" value="state" placeholder="state">
-              </div>
-            </div>
-
-            <div class="field">
-              <label for="responsePath">Caminho da lista no JSON (opcional)</label>
-              <input id="responsePath" placeholder="Ex.: data.leads (deixe vazio para detectar automaticamente)">
-              <small>Use pontos para acessar objetos aninhados. Exemplo: results.items</small>
-            </div>
-
-            <div class="api-buttons">
-              <button type="submit" class="btn primary">Salvar configuração</button>
-              <button type="button" class="btn secondary" id="testApi">Testar conexão</button>
-              <button type="button" class="btn ghost" id="clearApi">Limpar</button>
-            </div>
-          </form>
-          <div id="apiMessage" class="api-message" role="status"></div>
         </div>
 
-        <div class="api-side">
-          <div class="panel">
-            <h3>Estado da conexão</h3>
-            <div class="connection-detail"><span class="status-light" id="apiLight"></span><div><strong id="apiStateText">Não configurada</strong><small id="apiLastTest">Nenhum teste realizado</small></div></div>
-            <hr>
-            <h3>Como funciona</h3>
-            <ol class="steps"><li>Escolha uma fonte de dados e crie seu endpoint.</li><li>Configure a URL e o método HTTP.</li><li>Teste a conexão e salve.</li><li>Faça uma busca na página Encontrar leads.</li></ol>
-          </div>
-          <div class="panel">
-            <h3>Formato de resposta esperado</h3>
-            <p class="muted">O endpoint pode retornar uma lista diretamente ou dentro de <code>leads</code>, <code>results</code> ou <code>data</code>.</p>
-            <pre class="code-sample">{
+
+        <div class="menu-title">
+            WORKSPACE
+        </div>
+
+
+        <nav class="navigation">
+
+            <button
+                class="nav-item active"
+                data-page="searchPage"
+            >
+
+                <span class="nav-icon">⌕</span>
+
+                <span>
+                    Buscar leads
+                </span>
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-page="favoritesPage"
+            >
+
+                <span class="nav-icon">☆</span>
+
+                <span>
+                    Favoritos
+                </span>
+
+                <span
+                    class="counter"
+                    id="favoriteCounter"
+                >
+                    0
+                </span>
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-page="apiPage"
+            >
+
+                <span class="nav-icon">⚙</span>
+
+                <span>
+                    Integração API
+                </span>
+
+            </button>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div
+                class="connection-indicator"
+                id="sidebarIndicator"
+            ></div>
+
+            <div>
+
+                <strong id="sidebarConnection">
+                    API não conectada
+                </strong>
+
+                <small>
+                    Status da integração
+                </small>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <div>
+
+                <div class="breadcrumb">
+                    LEADBR / PROSPECÇÃO
+                </div>
+
+                <h1 id="pageTitle">
+                    Encontrar novos clientes
+                </h1>
+
+                <p id="pageDescription">
+                    Pesquise empresas e encontre oportunidades comerciais em todo o Brasil.
+                </p>
+
+            </div>
+
+
+            <div class="top-status">
+
+                <span
+                    class="status-pill"
+                    id="connectionPill"
+                >
+
+                    <i></i>
+
+                    API não conectada
+
+                </span>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- SEARCH PAGE -->
+
+        <section
+            class="page active"
+            id="searchPage"
+        >
+
+            <div class="search-hero">
+
+                <div class="hero-content">
+
+                    <span class="hero-label">
+                        PROSPECÇÃO INTELIGENTE
+                    </span>
+
+                    <h2>
+                        Encontre empresas.
+                        <br>
+                        Encontre oportunidades.
+                    </h2>
+
+                    <p>
+                        Pesquise negócios por segmento e localização
+                        utilizando sua fonte de dados conectada.
+                    </p>
+
+                </div>
+
+                <div class="hero-decoration">
+
+                    <div class="glow"></div>
+
+                    <div class="orb orb-1"></div>
+                    <div class="orb orb-2"></div>
+                    <div class="orb orb-3"></div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- SEARCH BOX -->
+
+            <div class="search-box">
+
+                <div class="search-heading">
+
+                    <div>
+
+                        <h3>
+                            Pesquisa de leads
+                        </h3>
+
+                        <p>
+                            Defina o perfil de empresa que você deseja encontrar.
+                        </p>
+
+                    </div>
+
+                    <div class="api-required">
+                        <span></span>
+                        API necessária
+                    </div>
+
+                </div>
+
+
+                <form id="searchForm">
+
+                    <div class="form-grid">
+
+                        <div class="input-group large">
+
+                            <label>
+                                Segmento
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <span>⌕</span>
+
+                                <input
+                                    id="segment"
+                                    type="text"
+                                    placeholder="Ex.: clínica odontológica"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="input-group">
+
+                            <label>
+                                Estado
+                            </label>
+
+                            <select id="state">
+
+                                <option value="">
+                                    Todos
+                                </option>
+
+                                <option value="AC">AC</option>
+                                <option value="AL">AL</option>
+                                <option value="AP">AP</option>
+                                <option value="AM">AM</option>
+                                <option value="BA">BA</option>
+                                <option value="CE">CE</option>
+                                <option value="DF">DF</option>
+                                <option value="ES">ES</option>
+                                <option value="GO">GO</option>
+                                <option value="MA">MA</option>
+                                <option value="MT">MT</option>
+                                <option value="MS">MS</option>
+                                <option value="MG">MG</option>
+                                <option value="PA">PA</option>
+                                <option value="PB">PB</option>
+                                <option value="PR">PR</option>
+                                <option value="PE">PE</option>
+                                <option value="PI">PI</option>
+                                <option value="RJ">RJ</option>
+                                <option value="RN">RN</option>
+                                <option value="RS">RS</option>
+                                <option value="RO">RO</option>
+                                <option value="RR">RR</option>
+                                <option value="SC">SC</option>
+                                <option value="SP">SP</option>
+                                <option value="SE">SE</option>
+                                <option value="TO">TO</option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="input-group">
+
+                            <label>
+                                Cidade
+                            </label>
+
+                            <input
+                                id="city"
+                                type="text"
+                                placeholder="Ex.: Sorocaba"
+                            >
+
+                        </div>
+
+
+                        <div class="input-group">
+
+                            <label>
+                                Resultados
+                            </label>
+
+                            <select id="limit">
+
+                                <option value="10">
+                                    10 leads
+                                </option>
+
+                                <option value="25">
+                                    25 leads
+                                </option>
+
+                                <option value="50">
+                                    50 leads
+                                </option>
+
+                                <option value="100">
+                                    100 leads
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <button
+                            class="search-button"
+                            id="searchButton"
+                            type="submit"
+                        >
+
+                            <span>
+                                Pesquisar empresas
+                            </span>
+
+                            <strong>
+                                →
+                            </strong>
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+
+
+            <!-- RESULTS HEADER -->
+
+            <div class="results-header">
+
+                <div>
+
+                    <h2>
+                        Resultados
+                    </h2>
+
+                    <p id="resultsInfo">
+                        Faça uma pesquisa para visualizar os leads.
+                    </p>
+
+                </div>
+
+
+                <div class="result-tools">
+
+                    <select id="scoreFilter">
+
+                        <option value="all">
+                            Todas oportunidades
+                        </option>
+
+                        <option value="high">
+                            Alta oportunidade
+                        </option>
+
+                        <option value="medium">
+                            Média oportunidade
+                        </option>
+
+                        <option value="low">
+                            Baixa oportunidade
+                        </option>
+
+                    </select>
+
+
+                    <button
+                        class="secondary-button"
+                        id="exportButton"
+                    >
+                        Exportar CSV
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- RESULTS -->
+
+            <div
+                class="results-grid"
+                id="resultsGrid"
+            >
+
+                <div class="empty-results">
+
+                    <div class="empty-icon">
+                        ⌕
+                    </div>
+
+                    <h3>
+                        Sua busca começa aqui
+                    </h3>
+
+                    <p>
+                        Configure sua API e pesquise empresas
+                        utilizando os filtros acima.
+                    </p>
+
+                    <button
+                        class="empty-button"
+                        data-page="apiPage"
+                    >
+                        Configurar API
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- FAVORITES -->
+
+        <section
+            class="page"
+            id="favoritesPage"
+        >
+
+            <div class="page-heading">
+
+                <div>
+
+                    <span class="eyebrow">
+                        ORGANIZAÇÃO
+                    </span>
+
+                    <h2>
+                        Leads favoritos
+                    </h2>
+
+                    <p>
+                        Empresas que você salvou para prospectar depois.
+                    </p>
+
+                </div>
+
+                <button
+                    class="secondary-button"
+                    id="exportFavorites"
+                >
+                    Exportar favoritos
+                </button>
+
+            </div>
+
+
+            <div
+                class="results-grid"
+                id="favoritesGrid"
+            ></div>
+
+        </section>
+
+
+
+        <!-- API -->
+
+        <section
+            class="page"
+            id="apiPage"
+        >
+
+            <div class="api-layout">
+
+                <div class="api-main">
+
+                    <div class="page-heading">
+
+                        <div>
+
+                            <span class="eyebrow">
+                                INTEGRAÇÃO
+                            </span>
+
+                            <h2>
+                                Conectar fonte de leads
+                            </h2>
+
+                            <p>
+                                Configure o endpoint responsável por fornecer
+                                os dados das empresas.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="api-card">
+
+                        <div class="api-status-banner">
+
+                            <div class="api-status-icon">
+                                ⚡
+                            </div>
+
+                            <div>
+
+                                <strong id="apiBannerTitle">
+                                    Nenhuma API configurada
+                                </strong>
+
+                                <p id="apiBannerDescription">
+                                    Configure seu endpoint para habilitar
+                                    a pesquisa de empresas.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <form id="apiForm">
+
+                            <div class="field">
+
+                                <label>
+                                    Endpoint da API
+                                </label>
+
+                                <input
+                                    id="apiUrl"
+                                    type="url"
+                                    placeholder="https://seu-backend.com/api/leads"
+                                >
+
+                                <small>
+                                    URL pública do endpoint que receberá
+                                    as consultas.
+                                </small>
+
+                            </div>
+
+
+                            <div class="two-columns">
+
+                                <div class="field">
+
+                                    <label>
+                                        Método
+                                    </label>
+
+                                    <select id="apiMethod">
+
+                                        <option value="GET">
+                                            GET
+                                        </option>
+
+                                        <option value="POST">
+                                            POST
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <div class="field">
+
+                                    <label>
+                                        Autenticação
+                                    </label>
+
+                                    <select id="authType">
+
+                                        <option value="none">
+                                            Nenhuma
+                                        </option>
+
+                                        <option value="bearer">
+                                            Bearer Token
+                                        </option>
+
+                                        <option value="header">
+                                            API Key / Header
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+
+                            <div
+                                id="authArea"
+                                class="hidden"
+                            >
+
+                                <div class="field">
+
+                                    <label>
+                                        Token / API Key
+                                    </label>
+
+                                    <input
+                                        id="apiToken"
+                                        type="password"
+                                        placeholder="••••••••••••••••"
+                                    >
+
+                                    <small>
+                                        Não coloque chaves privadas de provedores
+                                        diretamente em um site público.
+                                    </small>
+
+                                </div>
+
+
+                                <div
+                                    class="field hidden"
+                                    id="headerArea"
+                                >
+
+                                    <label>
+                                        Nome do Header
+                                    </label>
+
+                                    <input
+                                        id="headerName"
+                                        placeholder="x-api-key"
+                                    >
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="section-divider">
+                                Parâmetros da pesquisa
+                            </div>
+
+
+                            <div class="two-columns">
+
+                                <div class="field">
+
+                                    <label>
+                                        Parâmetro do segmento
+                                    </label>
+
+                                    <input
+                                        id="segmentParam"
+                                        value="segment"
+                                    >
+
+                                </div>
+
+
+                                <div class="field">
+
+                                    <label>
+                                        Parâmetro da cidade
+                                    </label>
+
+                                    <input
+                                        id="cityParam"
+                                        value="city"
+                                    >
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="two-columns">
+
+                                <div class="field">
+
+                                    <label>
+                                        Parâmetro do estado
+                                    </label>
+
+                                    <input
+                                        id="stateParam"
+                                        value="state"
+                                    >
+
+                                </div>
+
+
+                                <div class="field">
+
+                                    <label>
+                                        Parâmetro de quantidade
+                                    </label>
+
+                                    <input
+                                        id="limitParam"
+                                        value="limit"
+                                    >
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="field">
+
+                                <label>
+                                    Caminho dos resultados
+                                </label>
+
+                                <input
+                                    id="responsePath"
+                                    placeholder="Ex.: data.leads"
+                                >
+
+                                <small>
+                                    Deixe vazio para o LeadBR tentar detectar
+                                    automaticamente.
+                                </small>
+
+                            </div>
+
+
+                            <div class="api-actions">
+
+                                <button
+                                    class="primary-button"
+                                    type="submit"
+                                >
+                                    Salvar configuração
+                                </button>
+
+                                <button
+                                    class="secondary-button"
+                                    type="button"
+                                    id="testApi"
+                                >
+                                    Testar conexão
+                                </button>
+
+                                <button
+                                    class="danger-button"
+                                    type="button"
+                                    id="clearApi"
+                                >
+                                    Limpar
+                                </button>
+
+                            </div>
+
+
+                            <div
+                                class="api-message"
+                                id="apiMessage"
+                            ></div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+
+                <aside class="api-sidebar">
+
+                    <div class="info-card">
+
+                        <div class="info-card-title">
+                            <span>●</span>
+                            Status
+                        </div>
+
+                        <div class="big-api-status">
+
+                            <div
+                                class="status-circle"
+                                id="apiCircle"
+                            ></div>
+
+                            <div>
+
+                                <strong id="apiStatusText">
+                                    Não conectada
+                                </strong>
+
+                                <small id="apiLastTest">
+                                    Nenhum teste realizado
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-card">
+
+                        <div class="info-card-title">
+                            Como funciona
+                        </div>
+
+                        <ol class="steps">
+
+                            <li>
+                                Configure seu backend.
+                            </li>
+
+                            <li>
+                                Insira o endpoint acima.
+                            </li>
+
+                            <li>
+                                Teste a conexão.
+                            </li>
+
+                            <li>
+                                Pesquise empresas.
+                            </li>
+
+                        </ol>
+
+                    </div>
+
+
+                    <div class="info-card">
+
+                        <div class="info-card-title">
+                            Resposta esperada
+                        </div>
+
+                        <pre>{
   "leads": [
     {
-      "name": "Empresa Exemplo",
+      "name": "Empresa",
       "city": "Sorocaba",
       "state": "SP",
       "phone": "+5511999999999",
       "website": "",
       "instagram": "",
-      "rating": 4.5,
-      "reviews": 30
+      "rating": 4.7,
+      "reviews": 82
     }
   ]
 }</pre>
-            <button type="button" class="btn secondary full" id="copyExample">Copiar exemplo JSON</button>
-          </div>
-          <div class="security-note"><strong>🔐 Segurança</strong><p>GitHub Pages é público e não protege segredos. Nunca coloque chaves privadas de provedores no JavaScript. Para Google Places ou APIs pagas, use um backend com a chave guardada em variável de ambiente.</p></div>
-        </div>
-      </div>
-    </section>
 
-    <footer>LeadBR V2 <span>•</span> Ferramenta de organização de prospecção</footer>
-  </main>
+                    </div>
+
+
+                    <div class="security-box">
+
+                        <strong>
+                            🔐 Segurança
+                        </strong>
+
+                        <p>
+                            Se sua fonte utiliza uma chave privada,
+                            mantenha essa chave no backend. O GitHub Pages
+                            publica todo o JavaScript para o navegador.
+                        </p>
+
+                    </div>
+
+                </aside>
+
+            </div>
+
+        </section>
+
+
+
+        <footer>
+
+            LeadBR
+            <span>•</span>
+            Prospecção inteligente
+
+        </footer>
+
+    </main>
+
 </div>
 
-<div id="toast" class="toast"></div>
+
+<div
+    class="toast"
+    id="toast"
+></div>
+
+
 <script src="script.js"></script>
+
 </body>
 </html>
-```
